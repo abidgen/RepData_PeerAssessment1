@@ -89,7 +89,7 @@ ggplot(totalStepsPerDay, aes(steps))+
     theme(legend.position = c(0.95,0.85), plot.title = element_text(hjust = 0.5))
 ```
 
-![](PA1_template_files/figure-html/Histogram of the total number of steps taken each day-1.png)<!-- -->
+![](Figs/Histogram of the total number of steps taken each day-1.png)<!-- -->
 
 - Mean and median of the total number of steps taken per day
 
@@ -127,7 +127,7 @@ ggplot(timeSeriesData, aes(x=interval, y=steps))+
     theme( plot.title = element_text(hjust = 0.5))
 ```
 
-![](PA1_template_files/figure-html/time series plor-1.png)<!-- -->
+![](Figs/time series plor-1.png)<!-- -->
 
 - 5-minute interval with the maximum number of steps (average across all the days in the dataset)
 
@@ -213,7 +213,7 @@ ggplot(totalStepsPerDay_imputed, aes(steps))+
     theme(legend.position = c(0.95,0.85), plot.title = element_text(hjust = 0.5))
 ```
 
-![](PA1_template_files/figure-html/Imputed data - Histogram, mean and median-1.png)<!-- -->
+![](Figs/Imputed data - Histogram, mean and median-1.png)<!-- -->
 
 THe mean and median value is same. That is why, in the histogram, the red mean line and green median line merged and created a brown line.  
 
@@ -281,5 +281,5 @@ ggplot(timeSeriesData2, aes(x=interval, y=steps, color=weekdayType))+
     theme( plot.title = element_text(hjust = 0.5))
 ```
 
-![](PA1_template_files/figure-html/panel plot-1.png)<!-- -->
+![](Figs/panel plot-1.png)<!-- -->
 
