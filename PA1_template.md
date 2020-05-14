@@ -14,7 +14,6 @@ output:
 ```r
 library(dplyr)
 library(ggplot2)
-library(knitr)
 ```
 
 - Data loading
@@ -30,19 +29,18 @@ act_data<- read.csv("activity.csv")
 act_data$date<-as.Date(act_data$date)
 
 # Showing first few rows of the imputed dataset
-kable(head(act_data))
+head(act_data)
 ```
 
-
-
- steps  date          interval
-------  -----------  ---------
-    NA  2012-10-01           0
-    NA  2012-10-01           5
-    NA  2012-10-01          10
-    NA  2012-10-01          15
-    NA  2012-10-01          20
-    NA  2012-10-01          25
+```
+##   steps       date interval
+## 1    NA 2012-10-01        0
+## 2    NA 2012-10-01        5
+## 3    NA 2012-10-01       10
+## 4    NA 2012-10-01       15
+## 5    NA 2012-10-01       20
+## 6    NA 2012-10-01       25
+```
 
 ## What is mean total number of steps taken per day?
 
@@ -52,78 +50,28 @@ kable(head(act_data))
 # Grouping steps count by Date, then adding them accross groups.
 totalStepsPerDay<- act_data %>% group_by(date) %>%
     summarise(steps=sum(steps,na.rm=TRUE))
-kable(totalStepsPerDay, caption = "Total number of steps taken per day")
+totalStepsPerDay
 ```
 
-
-
-Table: Total number of steps taken per day
-
-date          steps
------------  ------
-2012-10-01        0
-2012-10-02      126
-2012-10-03    11352
-2012-10-04    12116
-2012-10-05    13294
-2012-10-06    15420
-2012-10-07    11015
-2012-10-08        0
-2012-10-09    12811
-2012-10-10     9900
-2012-10-11    10304
-2012-10-12    17382
-2012-10-13    12426
-2012-10-14    15098
-2012-10-15    10139
-2012-10-16    15084
-2012-10-17    13452
-2012-10-18    10056
-2012-10-19    11829
-2012-10-20    10395
-2012-10-21     8821
-2012-10-22    13460
-2012-10-23     8918
-2012-10-24     8355
-2012-10-25     2492
-2012-10-26     6778
-2012-10-27    10119
-2012-10-28    11458
-2012-10-29     5018
-2012-10-30     9819
-2012-10-31    15414
-2012-11-01        0
-2012-11-02    10600
-2012-11-03    10571
-2012-11-04        0
-2012-11-05    10439
-2012-11-06     8334
-2012-11-07    12883
-2012-11-08     3219
-2012-11-09        0
-2012-11-10        0
-2012-11-11    12608
-2012-11-12    10765
-2012-11-13     7336
-2012-11-14        0
-2012-11-15       41
-2012-11-16     5441
-2012-11-17    14339
-2012-11-18    15110
-2012-11-19     8841
-2012-11-20     4472
-2012-11-21    12787
-2012-11-22    20427
-2012-11-23    21194
-2012-11-24    14478
-2012-11-25    11834
-2012-11-26    11162
-2012-11-27    13646
-2012-11-28    10183
-2012-11-29     7047
-2012-11-30        0
+```
+## # A tibble: 61 x 2
+##    date       steps
+##    <date>     <int>
+##  1 2012-10-01     0
+##  2 2012-10-02   126
+##  3 2012-10-03 11352
+##  4 2012-10-04 12116
+##  5 2012-10-05 13294
+##  6 2012-10-06 15420
+##  7 2012-10-07 11015
+##  8 2012-10-08     0
+##  9 2012-10-09 12811
+## 10 2012-10-10  9900
+## # ... with 51 more rows
+```
 
 - Histogram of the total number of steps taken each day
+
 
 ```r
 # Calculating mean and median for the plot
@@ -186,31 +134,27 @@ ggplot(timeSeriesData, aes(x=interval, y=steps))+
 ```r
 maxinterval<- timeSeriesData[which.max(timeSeriesData$steps),]
 names(maxinterval)<- c("Interval identifier", "Maximun average steps")
-kable(maxinterval)
+maxinterval
 ```
 
-
-
- Interval identifier   Maximun average steps
---------------------  ----------------------
-                 835                206.1698
+```
+## # A tibble: 1 x 2
+##   `Interval identifier` `Maximun average steps`
+##                   <int>                   <dbl>
+## 1                   835                    206.
+```
 
 ## Imputing missing values
 -  Total number of missing values in the original dataset 
 
 ```r
-kable(colSums(is.na(act_data)), caption = "Number of Missnig values per column")
+colSums(is.na(act_data))
 ```
 
-
-
-Table: Number of Missnig values per column
-
-               x
----------  -----
-steps       2304
-date           0
-interval       0
+```
+##    steps     date interval 
+##     2304        0        0
+```
 
 - Replacing missing values with mean of steps across all days for that specific 5 minute interval
 
@@ -219,34 +163,33 @@ interval       0
 imputed_data<- act_data %>% group_by(interval) %>% 
     mutate(steps= replace(steps, is.na(steps), mean(steps,na.rm=TRUE) ))
 # Checking missing value number in the new formatted dataset
-kable(colSums(is.na(imputed_data)),caption = "Number of Missnig values per column")
+colSums(is.na(imputed_data))
 ```
 
-
-
-Table: Number of Missnig values per column
-
-             x
----------  ---
-steps        0
-date         0
-interval     0
+```
+##    steps     date interval 
+##        0        0        0
+```
 
 - New imputed dataset
 
 ```r
 # Showing first few rows of the imputed dataset
-kable(head(imputed_data))
+head(imputed_data)
 ```
 
-     steps  date          interval
-----------  -----------  ---------
- 1.7169811  2012-10-01           0
- 0.3396226  2012-10-01           5
- 0.1320755  2012-10-01          10
- 0.1509434  2012-10-01          15
- 0.0754717  2012-10-01          20
- 2.0943396  2012-10-01          25
+```
+## # A tibble: 6 x 3
+## # Groups:   interval [6]
+##    steps date       interval
+##    <dbl> <date>        <int>
+## 1 1.72   2012-10-01        0
+## 2 0.340  2012-10-01        5
+## 3 0.132  2012-10-01       10
+## 4 0.151  2012-10-01       15
+## 5 0.0755 2012-10-01       20
+## 6 2.09   2012-10-01       25
+```
 
 - Imputed data - Histogram, mean and median
 
@@ -306,17 +249,21 @@ imputed_data$weekday <- weekdays(imputed_data$date)
 imputed_data$weekdayType<-ifelse(weekdays(imputed_data$date) %in% c("Saturday","Sunday"), "Weekend", "Weekday")
 
 # Showing first few rows of the modified data 
-kable(head(imputed_data))
+head(imputed_data)
 ```
 
-     steps  date          interval  weekday   weekdayType 
-----------  -----------  ---------  --------  ------------
- 1.7169811  2012-10-01           0  Monday    Weekday     
- 0.3396226  2012-10-01           5  Monday    Weekday     
- 0.1320755  2012-10-01          10  Monday    Weekday     
- 0.1509434  2012-10-01          15  Monday    Weekday     
- 0.0754717  2012-10-01          20  Monday    Weekday     
- 2.0943396  2012-10-01          25  Monday    Weekday     
+```
+## # A tibble: 6 x 5
+## # Groups:   interval [6]
+##    steps date       interval weekday weekdayType
+##    <dbl> <date>        <int> <chr>   <chr>      
+## 1 1.72   2012-10-01        0 Monday  Weekday    
+## 2 0.340  2012-10-01        5 Monday  Weekday    
+## 3 0.132  2012-10-01       10 Monday  Weekday    
+## 4 0.151  2012-10-01       15 Monday  Weekday    
+## 5 0.0755 2012-10-01       20 Monday  Weekday    
+## 6 2.09   2012-10-01       25 Monday  Weekday
+```
 
 - Panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)
 

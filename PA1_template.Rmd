@@ -16,7 +16,6 @@ knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
 ```{r package loading}
 library(dplyr)
 library(ggplot2)
-library(knitr)
 ```
 
 - Data loading
@@ -30,7 +29,7 @@ act_data<- read.csv("activity.csv")
 act_data$date<-as.Date(act_data$date)
 
 # Showing first few rows of the imputed dataset
-kable(head(act_data))
+head(act_data)
 ```
 
 ## What is mean total number of steps taken per day?
@@ -40,10 +39,11 @@ kable(head(act_data))
 # Grouping steps count by Date, then adding them accross groups.
 totalStepsPerDay<- act_data %>% group_by(date) %>%
     summarise(steps=sum(steps,na.rm=TRUE))
-kable(totalStepsPerDay, caption = "Total number of steps taken per day")
+totalStepsPerDay
 ```
 
 - Histogram of the total number of steps taken each day
+
 ```{r Histogram of the total number of steps taken each day }
 # Calculating mean and median for the plot
 mean1<-round(mean(totalStepsPerDay$steps),2)
@@ -88,13 +88,13 @@ ggplot(timeSeriesData, aes(x=interval, y=steps))+
 ```{r maxinterval }
 maxinterval<- timeSeriesData[which.max(timeSeriesData$steps),]
 names(maxinterval)<- c("Interval identifier", "Maximun average steps")
-kable(maxinterval)
+maxinterval
 ```
 
 ## Imputing missing values
 -  Total number of missing values in the original dataset 
 ```{r missing values }
-kable(colSums(is.na(act_data)), caption = "Number of Missnig values per column")
+colSums(is.na(act_data))
 ```
 
 - Replacing missing values with mean of steps across all days for that specific 5 minute interval
@@ -103,13 +103,13 @@ kable(colSums(is.na(act_data)), caption = "Number of Missnig values per column")
 imputed_data<- act_data %>% group_by(interval) %>% 
     mutate(steps= replace(steps, is.na(steps), mean(steps,na.rm=TRUE) ))
 # Checking missing value number in the new formatted dataset
-kable(colSums(is.na(imputed_data)),caption = "Number of Missnig values per column")
+colSums(is.na(imputed_data))
 ```
 
 - New imputed dataset
 ```{r imputed dataset }
 # Showing first few rows of the imputed dataset
-kable(head(imputed_data))
+head(imputed_data)
 ```
 
 - Imputed data - Histogram, mean and median
@@ -155,7 +155,7 @@ imputed_data$weekday <- weekdays(imputed_data$date)
 imputed_data$weekdayType<-ifelse(weekdays(imputed_data$date) %in% c("Saturday","Sunday"), "Weekend", "Weekday")
 
 # Showing first few rows of the modified data 
-kable(head(imputed_data))
+head(imputed_data)
 
 ```
 

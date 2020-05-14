@@ -372,8 +372,7 @@ summary {
 <li>Package(s) loading</li>
 </ul>
 <pre class="r"><code>library(dplyr)
-library(ggplot2)
-library(knitr)</code></pre>
+library(ggplot2)</code></pre>
 <ul>
 <li>Data loading</li>
 </ul>
@@ -385,48 +384,14 @@ library(knitr)</code></pre>
 act_data$date&lt;-as.Date(act_data$date)
 
 # Showing first few rows of the imputed dataset
-kable(head(act_data))</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="right">steps</th>
-<th align="left">date</th>
-<th align="right">interval</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">NA</td>
-<td align="left">2012-10-01</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="right">NA</td>
-<td align="left">2012-10-01</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">NA</td>
-<td align="left">2012-10-01</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="right">NA</td>
-<td align="left">2012-10-01</td>
-<td align="right">15</td>
-</tr>
-<tr class="odd">
-<td align="right">NA</td>
-<td align="left">2012-10-01</td>
-<td align="right">20</td>
-</tr>
-<tr class="even">
-<td align="right">NA</td>
-<td align="left">2012-10-01</td>
-<td align="right">25</td>
-</tr>
-</tbody>
-</table>
+head(act_data)</code></pre>
+<pre><code>##   steps       date interval
+## 1    NA 2012-10-01        0
+## 2    NA 2012-10-01        5
+## 3    NA 2012-10-01       10
+## 4    NA 2012-10-01       15
+## 5    NA 2012-10-01       20
+## 6    NA 2012-10-01       25</code></pre>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
@@ -436,262 +401,21 @@ kable(head(act_data))</code></pre>
 <pre class="r"><code># Grouping steps count by Date, then adding them accross groups.
 totalStepsPerDay&lt;- act_data %&gt;% group_by(date) %&gt;%
     summarise(steps=sum(steps,na.rm=TRUE))
-kable(totalStepsPerDay, caption = &quot;Total number of steps taken per day&quot;)</code></pre>
-<table>
-<caption>Total number of steps taken per day</caption>
-<thead>
-<tr class="header">
-<th align="left">date</th>
-<th align="right">steps</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">2012-10-01</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-02</td>
-<td align="right">126</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-03</td>
-<td align="right">11352</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-04</td>
-<td align="right">12116</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-05</td>
-<td align="right">13294</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-06</td>
-<td align="right">15420</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-07</td>
-<td align="right">11015</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-08</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-09</td>
-<td align="right">12811</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-10</td>
-<td align="right">9900</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-11</td>
-<td align="right">10304</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-12</td>
-<td align="right">17382</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-13</td>
-<td align="right">12426</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-14</td>
-<td align="right">15098</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-15</td>
-<td align="right">10139</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-16</td>
-<td align="right">15084</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-17</td>
-<td align="right">13452</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-18</td>
-<td align="right">10056</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-19</td>
-<td align="right">11829</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-20</td>
-<td align="right">10395</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-21</td>
-<td align="right">8821</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-22</td>
-<td align="right">13460</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-23</td>
-<td align="right">8918</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-24</td>
-<td align="right">8355</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-25</td>
-<td align="right">2492</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-26</td>
-<td align="right">6778</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-27</td>
-<td align="right">10119</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-28</td>
-<td align="right">11458</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-29</td>
-<td align="right">5018</td>
-</tr>
-<tr class="even">
-<td align="left">2012-10-30</td>
-<td align="right">9819</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-10-31</td>
-<td align="right">15414</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-01</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-02</td>
-<td align="right">10600</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-03</td>
-<td align="right">10571</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-04</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-05</td>
-<td align="right">10439</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-06</td>
-<td align="right">8334</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-07</td>
-<td align="right">12883</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-08</td>
-<td align="right">3219</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-09</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-10</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-11</td>
-<td align="right">12608</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-12</td>
-<td align="right">10765</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-13</td>
-<td align="right">7336</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-14</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-15</td>
-<td align="right">41</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-16</td>
-<td align="right">5441</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-17</td>
-<td align="right">14339</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-18</td>
-<td align="right">15110</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-19</td>
-<td align="right">8841</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-20</td>
-<td align="right">4472</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-21</td>
-<td align="right">12787</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-22</td>
-<td align="right">20427</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-23</td>
-<td align="right">21194</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-24</td>
-<td align="right">14478</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-25</td>
-<td align="right">11834</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-26</td>
-<td align="right">11162</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-27</td>
-<td align="right">13646</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-28</td>
-<td align="right">10183</td>
-</tr>
-<tr class="even">
-<td align="left">2012-11-29</td>
-<td align="right">7047</td>
-</tr>
-<tr class="odd">
-<td align="left">2012-11-30</td>
-<td align="right">0</td>
-</tr>
-</tbody>
-</table>
+totalStepsPerDay</code></pre>
+<pre><code>## # A tibble: 61 x 2
+##    date       steps
+##    &lt;date&gt;     &lt;int&gt;
+##  1 2012-10-01     0
+##  2 2012-10-02   126
+##  3 2012-10-03 11352
+##  4 2012-10-04 12116
+##  5 2012-10-05 13294
+##  6 2012-10-06 15420
+##  7 2012-10-07 11015
+##  8 2012-10-08     0
+##  9 2012-10-09 12811
+## 10 2012-10-10  9900
+## # ... with 51 more rows</code></pre>
 <ul>
 <li>Histogram of the total number of steps taken each day</li>
 </ul>
@@ -740,51 +464,20 @@ ggplot(timeSeriesData, aes(x=interval, y=steps))+
 </ul>
 <pre class="r"><code>maxinterval&lt;- timeSeriesData[which.max(timeSeriesData$steps),]
 names(maxinterval)&lt;- c(&quot;Interval identifier&quot;, &quot;Maximun average steps&quot;)
-kable(maxinterval)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="right">Interval identifier</th>
-<th align="right">Maximun average steps</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">835</td>
-<td align="right">206.1698</td>
-</tr>
-</tbody>
-</table>
+maxinterval</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   `Interval identifier` `Maximun average steps`
+##                   &lt;int&gt;                   &lt;dbl&gt;
+## 1                   835                    206.</code></pre>
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
 <ul>
 <li>Total number of missing values in the original dataset</li>
 </ul>
-<pre class="r"><code>kable(colSums(is.na(act_data)), caption = &quot;Number of Missnig values per column&quot;)</code></pre>
-<table>
-<caption>Number of Missnig values per column</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="right">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>steps</td>
-<td align="right">2304</td>
-</tr>
-<tr class="even">
-<td>date</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td>interval</td>
-<td align="right">0</td>
-</tr>
-</tbody>
-</table>
+<pre class="r"><code>colSums(is.na(act_data))</code></pre>
+<pre><code>##    steps     date interval 
+##     2304        0        0</code></pre>
 <ul>
 <li>Replacing missing values with mean of steps across all days for that specific 5 minute interval</li>
 </ul>
@@ -792,76 +485,24 @@ kable(maxinterval)</code></pre>
 imputed_data&lt;- act_data %&gt;% group_by(interval) %&gt;% 
     mutate(steps= replace(steps, is.na(steps), mean(steps,na.rm=TRUE) ))
 # Checking missing value number in the new formatted dataset
-kable(colSums(is.na(imputed_data)),caption = &quot;Number of Missnig values per column&quot;)</code></pre>
-<table>
-<caption>Number of Missnig values per column</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="right">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>steps</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td>date</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td>interval</td>
-<td align="right">0</td>
-</tr>
-</tbody>
-</table>
+colSums(is.na(imputed_data))</code></pre>
+<pre><code>##    steps     date interval 
+##        0        0        0</code></pre>
 <ul>
 <li>New imputed dataset</li>
 </ul>
 <pre class="r"><code># Showing first few rows of the imputed dataset
-kable(head(imputed_data))</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="right">steps</th>
-<th align="left">date</th>
-<th align="right">interval</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1.7169811</td>
-<td align="left">2012-10-01</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="right">0.3396226</td>
-<td align="left">2012-10-01</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="right">0.1320755</td>
-<td align="left">2012-10-01</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="right">0.1509434</td>
-<td align="left">2012-10-01</td>
-<td align="right">15</td>
-</tr>
-<tr class="odd">
-<td align="right">0.0754717</td>
-<td align="left">2012-10-01</td>
-<td align="right">20</td>
-</tr>
-<tr class="even">
-<td align="right">2.0943396</td>
-<td align="left">2012-10-01</td>
-<td align="right">25</td>
-</tr>
-</tbody>
-</table>
+head(imputed_data)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+## # Groups:   interval [6]
+##    steps date       interval
+##    &lt;dbl&gt; &lt;date&gt;        &lt;int&gt;
+## 1 1.72   2012-10-01        0
+## 2 0.340  2012-10-01        5
+## 3 0.132  2012-10-01       10
+## 4 0.151  2012-10-01       15
+## 5 0.0755 2012-10-01       20
+## 6 2.09   2012-10-01       25</code></pre>
 <ul>
 <li>Imputed data - Histogram, mean and median</li>
 </ul>
@@ -904,62 +545,17 @@ imputed_data$weekday &lt;- weekdays(imputed_data$date)
 imputed_data$weekdayType&lt;-ifelse(weekdays(imputed_data$date) %in% c(&quot;Saturday&quot;,&quot;Sunday&quot;), &quot;Weekend&quot;, &quot;Weekday&quot;)
 
 # Showing first few rows of the modified data 
-kable(head(imputed_data))</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="right">steps</th>
-<th align="left">date</th>
-<th align="right">interval</th>
-<th align="left">weekday</th>
-<th align="left">weekdayType</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1.7169811</td>
-<td align="left">2012-10-01</td>
-<td align="right">0</td>
-<td align="left">Monday</td>
-<td align="left">Weekday</td>
-</tr>
-<tr class="even">
-<td align="right">0.3396226</td>
-<td align="left">2012-10-01</td>
-<td align="right">5</td>
-<td align="left">Monday</td>
-<td align="left">Weekday</td>
-</tr>
-<tr class="odd">
-<td align="right">0.1320755</td>
-<td align="left">2012-10-01</td>
-<td align="right">10</td>
-<td align="left">Monday</td>
-<td align="left">Weekday</td>
-</tr>
-<tr class="even">
-<td align="right">0.1509434</td>
-<td align="left">2012-10-01</td>
-<td align="right">15</td>
-<td align="left">Monday</td>
-<td align="left">Weekday</td>
-</tr>
-<tr class="odd">
-<td align="right">0.0754717</td>
-<td align="left">2012-10-01</td>
-<td align="right">20</td>
-<td align="left">Monday</td>
-<td align="left">Weekday</td>
-</tr>
-<tr class="even">
-<td align="right">2.0943396</td>
-<td align="left">2012-10-01</td>
-<td align="right">25</td>
-<td align="left">Monday</td>
-<td align="left">Weekday</td>
-</tr>
-</tbody>
-</table>
+head(imputed_data)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+## # Groups:   interval [6]
+##    steps date       interval weekday weekdayType
+##    &lt;dbl&gt; &lt;date&gt;        &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      
+## 1 1.72   2012-10-01        0 Monday  Weekday    
+## 2 0.340  2012-10-01        5 Monday  Weekday    
+## 3 0.132  2012-10-01       10 Monday  Weekday    
+## 4 0.151  2012-10-01       15 Monday  Weekday    
+## 5 0.0755 2012-10-01       20 Monday  Weekday    
+## 6 2.09   2012-10-01       25 Monday  Weekday</code></pre>
 <ul>
 <li>Panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)</li>
 </ul>
